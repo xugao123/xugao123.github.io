@@ -11,9 +11,9 @@
   
   <title>
     
-      Category 
+      Vue框架介绍 
       
-       : 后端
+      
       |
     
      洋小姐的IT进程
@@ -95,30 +95,195 @@
 
 
       <div class="flex-container">
-        <!-- 标签详情页，展示某个标签下的文章列表，url形式：https://yoursite/tags/某个标签/ -->
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
 
-<div class="container category-details">
-  <div class="content-title">
-    <h2>
-      <span>后端</span>
-    </h2>
-  </div>
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
   
-    <div class="post-list">
-      <div class="post-item" title="Hello World">
-        <span class="time-m-d">2021-03-21</span>
-        <a href="/2021/03/21/hello-world/">
-          <span>Hello World</span>
-        </a>
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Vue框架介绍</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-03-27 22:46:07
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
       </div>
+      <div class="markdown-body">
+        <h1 id="Vue框架介绍"><a href="#Vue框架介绍" class="headerlink" title="Vue框架介绍"></a>Vue框架介绍</h1><p>根据 Vue 官方的介绍，Vue 是一套用于构建用户界面的渐进式框架。与其它大型框架不同的是，Vue 被设计为可以自底向上逐层应用。Vue 的核心库只关注视图层，不仅易于上手，还便于与第三方库或既有项目整合。但 Vue 并不只是一个简单的视图库，通过与一系列周边工具的配合，它也可以轻易地构建大型应用。</p>
+<h2 id="模版引擎"><a href="#模版引擎" class="headerlink" title="模版引擎"></a>模版引擎</h2><p>模版引擎：Vue最主要最核心的能力，模版引擎的出现就是为了分离用户界面和业务数据</p>
+<ul>
+<li>不使用模版引擎，如图<br><img src="/images/bsymbyq.jpeg" alt="不使用模版引擎图"></li>
+<li>使用模版引擎，如图<br><img src="/images/symbyq.jpeg" alt="使用模版引擎图"></li>
+</ul>
+<h2 id="Vue渲染内容的过程"><a href="#Vue渲染内容的过程" class="headerlink" title="Vue渲染内容的过程"></a>Vue渲染内容的过程</h2><ul>
+<li>解析语法生成AST（抽象语法树）<ol>
+<li>捕捉特定语法</li>
+<li>DOM元素捕获</li>
+<li>模板引擎赋能</li>
+</ol>
+</li>
+<li>根据AST结果完成data数据初始化</li>
+<li>根据AST结果和data数据绑定情况生成虚拟DOM</li>
+<li>将虚拟DOM生成真正的dom插入到页面中，此时页面就会渲染</li>
+</ul>
+<h2 id="数据绑定"><a href="#数据绑定" class="headerlink" title="数据绑定"></a>数据绑定</h2><p>基础语法就是使用双大括号</p>
+<pre><code class="html">&lt;div&gt;&#123;&#123; message &#125;&#125;&lt;/div&gt;
+&lt;script&gt;
+new Vue(&#123;
+  data: &#123;
+    message: &quot;测试文本&quot;
+  &#125;
+&#125;);
+&lt;/script&gt;
+</code></pre>
+<h3 id="数据更新监听"><a href="#数据更新监听" class="headerlink" title="数据更新监听"></a>数据更新监听</h3><ul>
+<li>Angular: watch机制(脏检查)，就是监听常见的用户交互事件</li>
+<li>React: 手动 set 写入</li>
+<li>Vue: Getter/Setter</li>
+</ul>
+<h2 id="虚拟DOM"><a href="#虚拟DOM" class="headerlink" title="虚拟DOM"></a>虚拟DOM</h2><p>虚拟DOM过程：</p>
+<ul>
+<li>用js对象模拟DOM树，得到虚拟DOM树</li>
+<li>页面数据变更时生成新的虚拟DOM树，与旧的树进行差异化比较</li>
+<li>差异结果应用到真正的树上</li>
+</ul>
+<h2 id="xss漏洞填补"><a href="#xss漏洞填补" class="headerlink" title="xss漏洞填补"></a>xss漏洞填补</h2><p>xss：又叫css（cross site script）跨站脚本攻击,指恶意攻击者往web页米插入恶意html代码从而达到恶意目的<br>XSS 的整个攻击过程大概为：</p>
+<ul>
+<li>通常页面中包含的用户输入内容都在固定的容器或者属性内，以文本的形式展示。</li>
+<li>攻击者利用这些页面的用户输入片段，拼接特殊格式的字符串，突破原有位置的限制，形成了代码片段。</li>
+<li>攻击者通过在目标网站上注入脚本，使之在用户的浏览器上运行，从而引发潜在风险。</li>
+</ul>
+<p>避免 XSS 的方法之一主要是将用户所提供的内容进行过滤，而大多数模板引擎会自带 HTML 转义功能</p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-03-27 22:46:07
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/03/29/002.Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
     </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D"><span class="toc-text">Vue框架介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%A8%A1%E7%89%88%E5%BC%95%E6%93%8E"><span class="toc-text">模版引擎</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E6%B8%B2%E6%9F%93%E5%86%85%E5%AE%B9%E7%9A%84%E8%BF%87%E7%A8%8B"><span class="toc-text">Vue渲染内容的过程</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A"><span class="toc-text">数据绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E6%9B%B4%E6%96%B0%E7%9B%91%E5%90%AC"><span class="toc-text">数据更新监听</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%99%9A%E6%8B%9FDOM"><span class="toc-text">虚拟DOM</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#xss%E6%BC%8F%E6%B4%9E%E5%A1%AB%E8%A1%A5"><span class="toc-text">xss漏洞填补</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
   
-  <nav class="post-navigation">
+<script src="/js/catalog.js"></script>
+
+
+
+
     
-    <span class="page-num">1 / 1</span>
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
     
-  </nav>
-</div>
+  </div>
+
 
         <div class="footer">
   <div class="social">

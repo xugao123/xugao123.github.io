@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="洋小姐" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Vue基础介绍 
+      
+      
+      |
+    
+     洋小姐的IT进程
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">洋小姐</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Vue基础介绍</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-03-29 23:05:07
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="Vue基础介绍"><a href="#Vue基础介绍" class="headerlink" title="Vue基础介绍"></a>Vue基础介绍</h1><h2 id="vue-引入三种方式"><a href="#vue-引入三种方式" class="headerlink" title="vue 引入三种方式"></a>vue 引入三种方式</h2><ul>
+<li>方式一 直接CDN引入。 在线，开发版和生产版</li>
+<li>方式二 下载引入</li>
+<li>方式三 使用脚手架</li>
+</ul>
+<h2 id="Vue实例"><a href="#Vue实例" class="headerlink" title="Vue实例"></a>Vue实例</h2><p>Vue实例可以理解为每一个通过Vue函数创建的都是一个Vue实例</p>
+<pre><code class="JavaScript">new Vue(&#123;
+//选项
+&#125;)
+</code></pre>
+<p>Vue实例和Vue应用的关系，Vue应用是以Vue实例为根实例，以及可嵌套的，可复用的组件树组成。所以Vue实例是Vue应用的一部分。<br><img src="/images/Vuezujiantu.png" alt="Vue应用组成"></p>
+<h2 id="生命周期钩子"><a href="#生命周期钩子" class="headerlink" title="生命周期钩子"></a>生命周期钩子</h2><p>Vue数据渲染过程</p>
+<ol>
+<li>解析语法生成AST。</li>
+<li>根据AST结果，完成data数据初始化。</li>
+<li>根据AST结果和data 数据绑定情况，生成虚拟 DOM。</li>
+<li>将虚拟DOM生成真正的DOM插入到页面中，此时页面会被渲染。<h6 id="若页面数据发生更新，则还会发生以下过程"><a href="#若页面数据发生更新，则还会发生以下过程" class="headerlink" title="若页面数据发生更新，则还会发生以下过程"></a>若页面数据发生更新，则还会发生以下过程</h6></li>
+<li>框架接收到数据变更的事件，根据数据生成新的虚拟 DOM 树。比较新旧两棵虚拟 DOM 树，得到差异。</li>
+<li>把差异应用到真正的 DOM 树上，即根据差异来更新页面内容。</li>
+<li>注销实例，清空页面内容，移除绑定事件、监听器等。<br><img src="/images/shengmingzhouqigouzi.png" alt="生命周期说明"><br>补充官方的生命周期<br><img src="/images/guanfangshengmingzhouqi.png" alt="官方生命周期补充"></li>
+</ol>
+<h2 id="Vue实例基本选项"><a href="#Vue实例基本选项" class="headerlink" title="Vue实例基本选项"></a>Vue实例基本选项</h2><table>
+<thead>
+<tr>
+<th>选项名</th>
+<th>说明</th>
+<th>类型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>el</td>
+<td>通过 CSS 选择器或者 HTMLElement 实例的方式，提供一个在页面上已存在的 DOM 元素作为 Vue 实例的挂载目标</td>
+<td>string/Element</td>
+</tr>
+<tr>
+<td>template</td>
+<td>字符串模板，将会替换挂载的元素</td>
+<td>string</td>
+</tr>
+<tr>
+<td>render</td>
+<td>字符串模板的代替方案，该渲染函数接收一个createElement方法作为第一个参数用来创建VNode</td>
+<td>(createElement:()=&gt;VNode)=&gt;VNode</td>
+</tr>
+<tr>
+<td>data</td>
+<td>Vue 实例的数据对象，用于数据绑定</td>
+<td>Object/Function 组件只支持Function</td>
+</tr>
+<tr>
+<td>props</td>
+<td>用于接收来自父组件的数据</td>
+<td>Array<string>/Object</td>
+</tr>
+<tr>
+<td>methods</td>
+<td>Vue 实例的事件，可用于事件绑定</td>
+<td>{ [key: string]: Function }</td>
+</tr>
+<tr>
+<td>computed</td>
+<td>计算属性，用于简化模板的复杂数据计算</td>
+<td>{ [key: string]: Function or { get: Function, set: Function } }</td>
+</tr>
+<tr>
+<td>watch</td>
+<td>观察Vue实例变化的一个表达式或计算属性函数</td>
+<td>{ [key: string]: string or Function or Object or Array }</td>
+</tr>
+<tr>
+<td>directives</td>
+<td>自定义指令</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>filters</td>
+<td>过滤器</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>components</td>
+<td>组件</td>
+<td>Object</td>
+</tr>
+<tr>
+<td>Vue中的这些选项可通过全局实例属性访问</td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<pre><code class="JavaScript">const vm = new Vue(&#123;
+  // ...一些选项
+&#125;);
+
+vm.$data; // 获取 data
+vm.$props; // 获取 props
+vm.$el; // 获取挂载元素
+vm.$options; // 获取 Vue 实例的初始选项
+vm.$parent; // 获取父实例
+vm.$root; // 获取根实例
+vm.$children; // 获取当前实例的直接子组件
+vm.$refs; // 获取持有注册过 ref 特性 的所有 DOM 元素和组件实例
+
+vm.$watch; // 观察 Vue 实例变化的一个表达式或计算属性函数
+vm.$set; // 向响应式对象中添加一个属性，并确保这个新属性同样是响应式的，且触发视图更新
+vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删除能触发更新视图
+</code></pre>
+<ul>
+<li><code>el</code>选项提供一个页面中已存在的 DOM 元素作为实例的挂载目标,若是实例里面有这个选项，程序会直接编译，否则需要手动调用mount()<br><img src="/images/wu_el_xuanxiang.png" alt="手动调用mount()"></li>
+<li><code>template</code>选项给Vue实例提供字符串模板，该模板将会替换挂载的元素。在beforeMount()后vm.$el获取的是原html模板，Mounted()后替换成template的字符串模板</li>
+<li><code>render</code>渲染函数，若Vue中有render就会忽略template。该渲染函数接收一个createElement方法作为第一个参数用来创建 VNode。<img src="/images/rendershiyong.png" alt="image"></li>
+</ul>
+<h2 id="数据绑定方式"><a href="#数据绑定方式" class="headerlink" title="数据绑定方式"></a>数据绑定方式</h2><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>插值语法<code>&#123;&#123;&#125;&#125;</code></td>
+<td>文本插值，可配合过 Javascript 表达式和过滤器使用</td>
+</tr>
+<tr>
+<td>v-once</td>
+<td>一次性插值，数据改变时插值处的内容不会更新</td>
+</tr>
+<tr>
+<td>v-html</td>
+<td>可输出真正的HTML，不会被转义为普通文本</td>
+</tr>
+<tr>
+<td>v-bind:（简写:）</td>
+<td>可用于绑定DOM属性、或一个组件 prop 到表达式</td>
+</tr>
+<tr>
+<td>![image]/images/shujubangdingzhuyi.png)</td>
+<td></td>
+</tr>
+</tbody></table>
+<h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><pre><code class="html">&lt;!-- 绑定一个属性 --&gt;
+&lt;img v-bind:src=&quot;imageSrc&quot; /&gt;
+&lt;!-- 缩写 --&gt;
+&lt;img :src=&quot;imageSrc&quot; /&gt;
+&lt;!-- 最终会生成 `&lt;img src=&quot;$&#123;imageSrc&#125;&quot;&gt;` 这样的模板 --&gt;
+
+&lt;!-- 动态特性名 (2.6.0+) --&gt;
+&lt;button v-bind:[key]=&quot;value&quot;&gt;&lt;/button&gt;
+&lt;!-- 动态特性名缩写 (2.6.0+) --&gt;
+&lt;button :[key]=&quot;value&quot;&gt;&lt;/button&gt;
+&lt;!-- 最终会生成 `&lt;button $&#123;key&#125;=&quot;$&#123;value&#125;&quot;&gt;` 这样的模板 --&gt;
+
+&lt;!-- 内联字符串拼接 --&gt;
+&lt;img :src=&quot;&#39;/path/to/images/&#39; + fileName&quot; /&gt;
+
+&lt;!-- class 绑定 --&gt;
+&lt;div :class=&quot;&#123; red: isRed &#125;&quot;&gt;&lt;/div&gt;
+&lt;div :class=&quot;[classA, classB]&quot;&gt;&lt;/div&gt;
+&lt;div :class=&quot;[classA, &#123; classB: isB, classC: isC &#125;]&quot;&gt;
+  &lt;!-- style 绑定 --&gt;
+  &lt;div :style=&quot;&#123; fontSize: size + &#39;px&#39; &#125;&quot;&gt;&lt;/div&gt;
+  &lt;div :style=&quot;[styleObjectA, styleObjectB]&quot;&gt;&lt;/div&gt;
+
+  &lt;!-- 绑定一个有属性的对象 --&gt;
+  &lt;div v-bind=&quot;&#123; id: someProp, &#39;other-attr&#39;: otherProp &#125;&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code></pre>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/03/27/001.Vue%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-03-29 23:05:07
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="toc-text">Vue基础介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-%E5%BC%95%E5%85%A5%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">vue 引入三种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B"><span class="toc-text">Vue实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="toc-text">生命周期钩子</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%8B%A5%E9%A1%B5%E9%9D%A2%E6%95%B0%E6%8D%AE%E5%8F%91%E7%94%9F%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%88%99%E8%BF%98%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%A5%E4%B8%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">若页面数据发生更新，则还会发生以下过程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B%E5%9F%BA%E6%9C%AC%E9%80%89%E9%A1%B9"><span class="toc-text">Vue实例基本选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F"><span class="toc-text">数据绑定方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-bind"><span class="toc-text">v-bind</span></a></li></ol></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>
