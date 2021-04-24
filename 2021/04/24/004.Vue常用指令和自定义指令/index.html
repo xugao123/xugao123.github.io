@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="洋小姐" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Vue常用指令和自定义指令 
+      
+      
+      |
+    
+     洋小姐的IT进程
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">洋小姐</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Vue常用指令和自定义指令</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-04-24 13:57:57
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="Vue常用指令和自定义指令"><a href="#Vue常用指令和自定义指令" class="headerlink" title="Vue常用指令和自定义指令"></a>Vue常用指令和自定义指令</h1><h2 id="条件渲染"><a href="#条件渲染" class="headerlink" title="条件渲染"></a>条件渲染</h2><p>v-if,v-else-if,v-else,v-show</p>
+<h3 id="v-if系列"><a href="#v-if系列" class="headerlink" title="v-if系列"></a>v-if系列</h3><pre><code class="html">&lt;div v-if=&quot;type === &#39;A&#39;&quot;&gt;Type A&lt;/div&gt;
+&lt;div v-else-if=&quot;type === &#39;B&#39;&quot;&gt;Type B&lt;/div&gt;
+&lt;div v-else&gt;Default Type&lt;/div&gt;
+</code></pre>
+<pre><code class="javaScript">function genThisHTML(scopeData) &#123;
+  // scopeData 为 Vue 实例里绑定的 data 数据
+  if (scopeData.type === &quot;A&quot;) &#123;
+    return `&lt;div&gt;Type A&lt;/div&gt;`;
+  &#125; else if (scopeData.type === &quot;B&quot;) &#123;
+    return `&lt;div&gt;Type B&lt;/div&gt;`;
+  &#125; else &#123;
+    return `&lt;div&gt;Default Type&lt;/div&gt;`;
+  &#125;
+&#125;
+</code></pre>
+<h4 id="key"><a href="#key" class="headerlink" title="key"></a>key</h4><p>使用v-if的时候，有个要注意的地方</p>
+<pre><code class="html">&lt;template v-if=&quot;type === &#39;phone&#39;&quot;&gt;
+  &lt;input type=&quot;number&quot; placeholder=&quot;Enter your phone&quot; /&gt;
+&lt;/template&gt;
+&lt;template v-else&gt;
+  &lt;input type=&quot;text&quot; placeholder=&quot;Enter something&quot; /&gt;
+&lt;/template&gt;
+</code></pre>
+<p>上述情况有个问题，Dom树发生变化时会优先比较差异在，根据现有元素的差异进行更改，而非直接进行替换，所以在满足if条件经行变化的时候会只更改type和placeholder属性，但是已经在input里输入的值不会变化。<br><img src="/images/v-ifNoKey.png" alt="image"><br>这种情况的时候,给input加上key属性</p>
+<pre><code class="html">&lt;template v-if=&quot;type === &#39;phone&#39;&quot;&gt;
+  &lt;input type=&quot;number&quot; placeholder=&quot;Enter your phone&quot; key=&quot;phone&quot; /&gt;
+&lt;/template&gt;
+&lt;template v-else&gt;
+  &lt;input type=&quot;text&quot; placeholder=&quot;Enter something&quot; key=&quot;something-else&quot; /&gt;
+&lt;/template&gt;
+</code></pre>
+<p>这种情况下，input 会根据key是否匹配，来控制是否重新渲染（即移除元素再重新插入）。可以理解为我们给有这样特殊需要的 input 添加了个性化的 ID，它不跟其他 input 共享页面中的 HTML 元素：<br><img src="/images/v-ifKey.png" alt="image"></p>
+<h3 id="v-show"><a href="#v-show" class="headerlink" title="v-show"></a>v-show</h3><p>v-show和v-if不一样，v-if会在条件具备的时候才进行渲染，而v-show的逻辑是一定渲染，但在条件具备的时候才显示.<br>带有v-show的元素始终会被渲染并保留在 DOM 中。一般来说，v-if有更高的切换开销（因为要不停地重新渲染），而v-show有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用v-show较好；如果在运行时条件很少改变，则使用v-if较好</p>
+<h2 id="列表渲染"><a href="#列表渲染" class="headerlink" title="列表渲染"></a>列表渲染</h2><h3 id="v-for"><a href="#v-for" class="headerlink" title="v-for"></a>v-for</h3><p>v-for可以遍历数组，对象，数字</p>
+<pre><code class="html">!-- 遍历数组时 --&gt;
+&lt;!-- 其中 items 是源数据数组，而 item 则是被迭代的数组元素的别名，可选的第二个参数 index 为当前项的索引 --&gt;
+&lt;ul&gt;
+  &lt;li v-for=&quot;(item, index) in items&quot;&gt;
+    &#123;&#123;index&#125;&#125;: &#123;&#123; item.message &#125;&#125;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;!-- 遍历对象时 --&gt;
+&lt;!-- 在遍历对象时，会按 Object.keys() 的结果遍历 --&gt;
+&lt;!-- 其中 object 是源数据对象，而 value 则是被遍历的对象值，可选的第二个参数 key 为当前值的键名，可选的第三个参数 index 为当前项的索引 --&gt;
+&lt;div v-for=&quot;(value, key, index) in object&quot;&gt;
+  &#123;&#123; index &#125;&#125;.&#123;&#123; key &#125;&#125;: &#123;&#123; value &#125;&#125;
+&lt;/div&gt;
+
+&lt;!-- 还能遍历数字 --&gt;
+&lt;p v-for=&quot;n in 10&quot;&gt;&#123;&#123;n&#125;&#125;&lt;/p&gt;
+</code></pre>
+<p>同样，由于Vue中虚拟Dom的diff方式和更新的方式，v-for和v-if存在同样的问题，即input这样依赖临时DOM状态或子组件状态的元素，需要key来绑定重新渲染</p>
+<pre><code class="html">&lt;div v-for=&quot;item in items&quot; v-bind:key=&quot;item.id&quot;&gt;
+  &lt;!-- 内容 --&gt;
+&lt;/div&gt;
+</code></pre>
+<p>数据更新检测<br>在 Vue 中，当我们在data里绑定对象或者数组的时候，需要注意以下问题：<br>(1) data中的对象：Vue 无法检测到对象属性的添加或删除，当实例被创建时就已经存在于data中的属性才是响应式的，新增的属性等都不会触发视图的更新。<br>(2) data中的数组：除了特殊的数组操作如push()、pop()、shift()、unshift()、splice()、sort()、reverse()这些方法之外，数组中某个元素被替换、更新这种操作是无法触发视图更新的。</p>
+<pre><code class="javaScript">// 数组处理方法1: 返回新数组
+this.items = [...this.items, newItem];
+// 数组处理方法2: Vue.set 或 vm.$set
+Vue.set(vm.items, indexOfItem, newValue);
+vm.$set(vm.items, indexOfItem, newValue);
+
+// 对象处理方法1: 返回新对象
+this.object = &#123; ...this.object, key: newValue &#125;;
+// 对象处理方法2: Vue.set 或 vm.$set
+Vue.set(vm.object, key, value);
+vm.$set(vm.object, key, value);
+</code></pre>
+<p>注意：不要把v-if和v-for用在一个元素上，因为v-for的优先级更高，这样v-if发就会运行于每一个v-for循环中</p>
+<h2 id="表单绑定"><a href="#表单绑定" class="headerlink" title="表单绑定"></a>表单绑定</h2><h3 id="v-model"><a href="#v-model" class="headerlink" title="v-model"></a>v-model</h3><p>v-model指令在表单<code>&lt;input&gt;</code>,<code>&lt;textarea&gt;</code>,<code>&lt;select&gt;</code>元素上创建双向绑定，它用作监听用户的输入事件及更新数据。v-model其实是一个语法糖。</p>
+<pre><code class="html">&lt;template&gt;
+  &lt;input v-model=&quot;val&quot; /&gt;
+  &lt;!-- v-model 指令其实是下面的语法糖 --&gt;
+  &lt;input :value=&quot;val&quot; @input=&quot;updateValue&quot; /&gt;
+  &lt;!-- 也可以这么写 --&gt;
+  &lt;input :value=&quot;val&quot; @input=&quot;val = $event.target.value&quot; /&gt;
+&lt;/template&gt;
+</code></pre>
+<p>v-model 会忽略所有表单元素的 value、checked、selected attribute 的初始值而总是将 Vue 实例的数据作为数据来源。你应该通过 JavaScript 在组件的 data 选项中声明初始值。</p>
+<p>v-model 在内部为不同的输入元素使用不同的 property 并抛出不同的事件：</p>
+<ul>
+<li>text 和 textarea 元素使用 value property 和 input 事件；</li>
+<li>checkbox 和 radio 使用 checked property 和 change 事件；</li>
+<li>select 字段将 value 作为 prop 并将 change 作为事件。</li>
+</ul>
+<p>v-model使用注意：</p>
+<ol>
+<li>多选时，<code>v-model</code>会绑定一个数组</li>
+<li>单选按钮，复选框及选择框的选项<code>v-model</code>绑定的通常是静态字符串</li>
+<li>复选框可以使用<code>true-value``false-value</code>来设置绑定值</li>
+</ol>
+<p>v-model修饰符</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.lazy</td>
+<td>v-model在每次input事件触发后将输入框的值与数据进行同步，转变为使用change事件进行同步</td>
+</tr>
+<tr>
+<td>.number</td>
+<td>自动将用户的输入值转为数值类型</td>
+</tr>
+<tr>
+<td>.trim</td>
+<td>自动过滤用户输入的首尾空白字符</td>
+</tr>
+</tbody></table>
+<h2 id="自定义指令"><a href="#自定义指令" class="headerlink" title="自定义指令"></a>自定义指令</h2><p>全局自定义指令和局部自定义指令<br>Vue.directive，自定义全局注册指令的方式<br>directives:{},局部注册选项</p>
+<pre><code class="javaScript">// 注册一个全局自定义指令 `v-focus`
+// 当然这里也支持通过 Vue 选项来进行局部注册指令
+Vue.directive(&quot;focus&quot;, &#123;
+  // 当被绑定的元素插入到 DOM 中时
+  inserted: function(el) &#123;
+    // 聚焦元素
+    el.focus();
+  &#125;
+&#125;);
+
+//使用
+&lt;!-- 当页面加载时，该元素将获得焦点 --&gt;
+&lt;input v-focus /&gt;
+
+// 局部注册，vue实例选项
+directives: &#123;
+  focus: &#123;
+    // 指令的定义
+    inserted: function (el) &#123;
+      el.focus()
+    &#125;
+  &#125;
+&#125;
+</code></pre>
+<p>在自定义指令中，一般都会用到钩子函数，例如上边的inserted,除此之外还有一些其他常用到的钩子函数</p>
+<table>
+<thead>
+<tr>
+<th>钩子函数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bind</td>
+<td>只调用一次，指令第一次绑定到元素时调用，在这里可以进行一次性的初始化设置</td>
+</tr>
+<tr>
+<td>inserted</td>
+<td>被绑定元素插入父节点时调用 (仅保证父节点存在，但不一定已被插入文档中)</td>
+</tr>
+<tr>
+<td>update</td>
+<td>所在组件的 VNode 更新时调用，但是可能发生在其子 VNode 更新之前（指令的值通过比较更新前后的值来忽略不必要的模板更新）</td>
+</tr>
+<tr>
+<td>componentUpdated</td>
+<td>指令所在组件的 VNode 及其子 VNode 全部更新后调用</td>
+</tr>
+<tr>
+<td>unbind</td>
+<td>只调用一次，指令与元素解绑时调用</td>
+</tr>
+</tbody></table>
+<p>钩子函数的参数（el,binding,vnode,oldVnode）</p>
+<ul>
+<li>el: 被绑定的元素，可以直接用来操作dom</li>
+<li>binding: 一个对象，拥有以下属性<ol>
+<li>name：指令名，不包括 v- 前缀。</li>
+<li>value：指令的绑定值，例如：v-my-directive=”1 + 1” 中，绑定值为 2。</li>
+<li>oldValue：指令绑定的前一个值，仅在 update 和 componentUpdated 钩子中可用。无论值是否改变都可用。</li>
+<li>expression：字符串形式的指令表达式。例如 v-my-directive=”1 + 1” 中，表达式为 “1 + 1”。</li>
+<li>arg：传给指令的参数，可选。例如 v-my-directive:foo 中，参数为 “foo”。</li>
+<li>modifiers：一个包含修饰符的对象。例如：v-my-directive.foo.bar 中，修饰符对象为 { foo: true, bar: true }。</li>
+</ol>
+</li>
+<li>vnode: Vue 编译生成的虚拟节点。</li>
+<li>oldVnode：上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用。<br>例如</li>
+</ul>
+<pre><code class="html">&lt;div id=&quot;hook-arguments-example&quot; v-demo:foo.a.b=&quot;message&quot;&gt;&lt;/div&gt;
+&lt;Script&gt;
+Vue.directive(&#39;demo&#39;, &#123;
+  bind: function (el, binding, vnode) &#123;
+    var s = JSON.stringify
+    el.innerHTML =
+      &#39;name: &#39;       + s(binding.name) + &#39;&lt;br&gt;&#39; +
+      &#39;value: &#39;      + s(binding.value) + &#39;&lt;br&gt;&#39; +
+      &#39;expression: &#39; + s(binding.expression) + &#39;&lt;br&gt;&#39; +
+      &#39;argument: &#39;   + s(binding.arg) + &#39;&lt;br&gt;&#39; +
+      &#39;modifiers: &#39;  + s(binding.modifiers) + &#39;&lt;br&gt;&#39; +
+      &#39;vnode keys: &#39; + Object.keys(vnode).join(&#39;, &#39;)
+  &#125;
+&#125;)
+
+new Vue(&#123;
+  el: &#39;#hook-arguments-example&#39;,
+  data: &#123;
+    message: &#39;hello!&#39;
+  &#125;
+&#125;)
+&lt;/Script&gt;
+</code></pre>
+<p>有些常用的自定义指令，比如长按，按在区域外面组件不显示等，自定义指令在开发过程中很方便</p>
+<pre><code class="html">&lt;!-- 关闭某些元素 v-click-outside --&gt;
+Vue.directive(&quot;click-outside&quot;, &#123;
+  bind: function(el, binding, vnode) &#123;
+    el.event = function(event) &#123;
+      // 检查点击是否发生在节点之内（包括子节点）
+      if (!(el == event.target || el.contains(event.target))) &#123;
+        // 如果没有，则触发调用
+        // 若绑定值为函数，则执行
+        // 这里我们可以通过钩子函数中的 vnode.context，来获取当前组件的作用域
+        if (typeof vnode.context[binding.expression] == &quot;function&quot;) &#123;
+          vnode.context[binding.expression](event);
+        &#125;
+      &#125;
+    &#125;;
+    // 绑定事件
+    // 设置为true，代表在DOM树中，注册了该listener的元素，会先于它下方的任何事件目标，接收到该事件。
+    document.body.addEventListener(&quot;click&quot;, el.event, true);
+  &#125;,
+  unbind: function(el) &#123;
+    // 解绑事件
+    document.body.removeEventListener(&quot;click&quot;, el.event, true);
+  &#125;
+&#125;);
+
+// 使用
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;!-- 这是基于 bootstrap 常见的下拉菜单样式 --&gt;
+    &lt;div class=&quot;row&quot; style=&quot;margin-left: 20px;&quot;&gt;
+      &lt;label class=&quot;mr5&quot; style=&quot;font-size: 14px;&quot;&gt;下拉菜单&lt;/label&gt;
+      &lt;!-- v-click-outside 绑定方法名 --&gt;
+      &lt;div class=&quot;btn-group&quot; v-click-outside=&quot;closeMenu&quot;&gt;
+        &lt;!-- 这里点击会切换菜单是否可见 --&gt;
+        &lt;button
+          type=&quot;button&quot;
+          class=&quot;btn btn-default dropdown-toggle&quot;
+          @click=&quot;isMenuShown = !isMenuShown&quot;
+        &gt;
+          点击 &lt;span class=&quot;caret&quot;&gt;&lt;/span&gt;
+        &lt;/button&gt;
+        &lt;ul v-show=&quot;isMenuShown&quot; class=&quot;dropdown-menu&quot; style=&quot;display:block;&quot;&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Action&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Another action&lt;/a&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Something else here&lt;/a&gt;&lt;/li&gt;
+          &lt;li role=&quot;separator&quot; class=&quot;divider&quot;&gt;&lt;/li&gt;
+          &lt;li&gt;&lt;a href=&quot;#&quot;&gt;Separated link&lt;/a&gt;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default &#123;
+    data() &#123;
+      return &#123;
+        isMenuShown: false
+      &#125;;
+    &#125;,
+    methods: &#123;
+      // 该方法将菜单是否可见设置为不可见
+      closeMenu(ev) &#123;
+        console.log(&#123; ev &#125;);
+        this.isMenuShown = false;
+      &#125;
+    &#125;
+  &#125;;
+&lt;/script&gt;
+
+
+&lt;!-- 长按 v-longpress --&gt;
+Vue.directive(&quot;longpress&quot;, &#123;
+  bind: function(el, binding, vNode) &#123;
+    // 确保提供的表达式是函数
+    if (typeof binding.value !== &quot;function&quot;) &#123;
+      // 获取组件名称
+      const compName = vNode.context.name;
+      // 将警告传递给控制台
+      let warn = `[longpress:] provided expression &#39;$&#123;binding.expression&#125;&#39; is not a function, but has to be `;
+      if (compName) &#123;
+        warn += `Found in component &#39;$&#123;compName&#125;&#39; `;
+      &#125;
+      console.warn(warn);
+    &#125;
+    // 定义变量
+    let pressTimer = null;
+    // 定义函数处理程序
+    // 创建计时器（ 1秒后执行函数 ）
+    el.startEvent = e =&gt; &#123;
+      if (e.type === &quot;click&quot; &amp;&amp; e.button !== 0) &#123;
+        return;
+      &#125;
+      if (pressTimer === null) &#123;
+        pressTimer = setTimeout(() =&gt; &#123;
+          // 执行函数
+          handler();
+        &#125;, 1000);
+      &#125;
+    &#125;;
+    // 取消计时器
+    el.cancelEvent = e =&gt; &#123;
+      // 检查计时器是否有值
+      if (pressTimer !== null) &#123;
+        clearTimeout(pressTimer);
+        pressTimer = null;
+      &#125;
+    &#125;;
+    // 运行函数
+    const handler = e =&gt; &#123;
+      // 执行传递给指令的方法
+      binding.value(e);
+    &#125;;
+    // 添加事件监听器
+    el.addEventListener(&quot;mousedown&quot;, el.startEvent, true);
+    el.addEventListener(&quot;touchstart&quot;, el.startEvent, true);
+    // 取消计时器
+    el.addEventListener(&quot;click&quot;, el.cancelEvent, true);
+    el.addEventListener(&quot;mouseout&quot;, el.cancelEvent, true);
+    el.addEventListener(&quot;touchend&quot;, el.cancelEvent, true);
+    el.addEventListener(&quot;touchcancel&quot;, el.cancelEvent, true);
+  &#125;,
+  unbind: function(el) &#123;
+    // 解绑事件
+    el.removeEventListener(&quot;mousedown&quot;, el.startEvent, true);
+    el.removeEventListener(&quot;touchstart&quot;, el.startEvent, true);
+    // 取消计时器
+    el.removeEventListener(&quot;click&quot;, el.cancelEvent, true);
+    el.removeEventListener(&quot;mouseout&quot;, el.cancelEvent, true);
+    el.removeEventListener(&quot;touchend&quot;, el.cancelEvent, true);
+    el.removeEventListener(&quot;touchcancel&quot;, el.cancelEvent, true);
+  &#125;
+&#125;);
+
+//使用
+&lt;template&gt;
+  &lt;div v-longpress=&quot;longPress&quot;&gt;&#123;&#123;text&#125;&#125;&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default &#123;
+    data() &#123;
+      return &#123;
+        text: &quot;初始化&quot;
+      &#125;;
+    &#125;,
+    methods: &#123;
+      // 长按时执行该方法
+      longPress() &#123;
+        this.text = &quot;长按&quot;;
+      &#125;
+    &#125;
+  &#125;;
+&lt;/script&gt;
+</code></pre>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/04/24/003.Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-04-24 13:57:57
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">Vue常用指令和自定义指令</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E6%B8%B2%E6%9F%93"><span class="toc-text">条件渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-if%E7%B3%BB%E5%88%97"><span class="toc-text">v-if系列</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#key"><span class="toc-text">key</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-show"><span class="toc-text">v-show</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%88%97%E8%A1%A8%E6%B8%B2%E6%9F%93"><span class="toc-text">列表渲染</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-for"><span class="toc-text">v-for</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%A1%A8%E5%8D%95%E7%BB%91%E5%AE%9A"><span class="toc-text">表单绑定</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-model"><span class="toc-text">v-model</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4"><span class="toc-text">自定义指令</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>

@@ -127,7 +127,7 @@ MathJax = {
       <div class="post-attach">
         <span class="post-pubtime">
           <i class="iconfont icon-updatetime" title="Update time"></i>
-          2021-03-29 23:05:07
+          2021-04-10 19:05:56
         </span>
         
               <span class="post-categories">
@@ -244,12 +244,8 @@ MathJax = {
 <td>组件</td>
 <td>Object</td>
 </tr>
-<tr>
-<td>Vue中的这些选项可通过全局实例属性访问</td>
-<td></td>
-<td></td>
-</tr>
 </tbody></table>
+<p>Vue中的这些选项可通过全局实例属性访问</p>
 <pre><code class="JavaScript">const vm = new Vue(&#123;
   // ...一些选项
 &#125;);
@@ -270,8 +266,9 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
 <ul>
 <li><code>el</code>选项提供一个页面中已存在的 DOM 元素作为实例的挂载目标,若是实例里面有这个选项，程序会直接编译，否则需要手动调用mount()<br><img src="/images/wu_el_xuanxiang.png" alt="手动调用mount()"></li>
 <li><code>template</code>选项给Vue实例提供字符串模板，该模板将会替换挂载的元素。在beforeMount()后vm.$el获取的是原html模板，Mounted()后替换成template的字符串模板</li>
-<li><code>render</code>渲染函数，若Vue中有render就会忽略template。该渲染函数接收一个createElement方法作为第一个参数用来创建 VNode。<img src="/images/rendershiyong.png" alt="image"></li>
+<li><code>render</code>渲染函数，若Vue中有render就会忽略template。该渲染函数接收一个createElement方法作为第一个参数用来创建 VNode。</li>
 </ul>
+<p><img src="/images/rendershiyong.png" alt="image"></p>
 <h2 id="数据绑定方式"><a href="#数据绑定方式" class="headerlink" title="数据绑定方式"></a>数据绑定方式</h2><table>
 <thead>
 <tr>
@@ -280,7 +277,7 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
 </tr>
 </thead>
 <tbody><tr>
-<td>插值语法<code>&#123;&#123;&#125;&#125;</code></td>
+<td>插值语法(双大括号)</td>
 <td>文本插值，可配合过 Javascript 表达式和过滤器使用</td>
 </tr>
 <tr>
@@ -295,11 +292,8 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
 <td>v-bind:（简写:）</td>
 <td>可用于绑定DOM属性、或一个组件 prop 到表达式</td>
 </tr>
-<tr>
-<td>![image]/images/shujubangdingzhuyi.png)</td>
-<td></td>
-</tr>
 </tbody></table>
+<p><img src="/images/shujubangdingzhuyi.png" alt="image"></p>
 <h3 id="v-bind"><a href="#v-bind" class="headerlink" title="v-bind"></a>v-bind</h3><pre><code class="html">&lt;!-- 绑定一个属性 --&gt;
 &lt;img v-bind:src=&quot;imageSrc&quot; /&gt;
 &lt;!-- 缩写 --&gt;
@@ -327,6 +321,195 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
   &lt;div v-bind=&quot;&#123; id: someProp, &#39;other-attr&#39;: otherProp &#125;&quot;&gt;&lt;/div&gt;
 &lt;/div&gt;
 </code></pre>
+<h3 id="data"><a href="#data" class="headerlink" title="data"></a>data</h3><p>data的数据变更检测依靠与getter/setter，Vue会在创建实例进行初始化的时候进行对属性转换成getter/setter的操作，换句话说，只有在实例创建时存在在data里的属性才是响应式的，后添加的属性是不会响应的。</p>
+<pre><code>// 只有这些操作会通知变更噢
+const methodsToPatch = [
+  &quot;push&quot;,
+  &quot;pop&quot;,
+  &quot;shift&quot;,
+  &quot;unshift&quot;,
+  &quot;splice&quot;,
+  &quot;sort&quot;,
+  &quot;reverse&quot;
+];
+</code></pre>
+<p>除了使用可触发变更检测的特殊方法之外，也可以使用vm.$set(Vue.set)实例方法。</p>
+<pre><code>// 更新数组
+vm.$set(vm.items, indexOfItem, newValue);
+
+// 更新对象
+vm.$set(vm.someObject, keyOfObject, newValue);
+</code></pre>
+<h3 id="filter"><a href="#filter" class="headerlink" title="filter"></a>filter</h3><p>过滤器：可被用于一些常见的文本格式化，支持全局定义和组件中定义。</p>
+<pre><code class="JavaScript">// 全局定义
+// 千分位处理
+Vue.filter(&#39;thousandth&#39;, function (value) &#123;
+  if (!value) return &#39;&#39;;
+  return value &amp;&amp; value.toString().replace(/^(-?\d+?)((?:\d&#123;3&#125;)+)(?=\.\d+$|$)/, function (all, pre, groupOf3Digital) &#123;
+    return pre + groupOf3Digital.replace(/\d&#123;3&#125;/g, &#39;,$&amp;&#39;)
+  &#125;);
+&#125;)
+
+// 局部定义
+// 乘以倍数
+filters: &#123;
+  multiply: function (value, times) &#123;
+    if (!value) return &#39;&#39;;
+    return value * ( parseInt(times) || 1);
+  &#125;
+&#125;
+</code></pre>
+<p>过滤器可以用在两个地方：双花括号插值和v-bind表达式。</p>
+<pre><code class="html">&lt;!-- 在双花括号中 --&gt;
+&#123;&#123; number | thousandth &#125;&#125;
+
+&lt;!-- 在 `v-bind` 中 --&gt;
+&lt;div v-bind:text=&quot;number | thousandth&quot;&gt;&lt;/div&gt;
+
+&lt;!-- 支持串联，可接受传参 --&gt;
+&#123;&#123; number | multiply(1000) | thousandth &#125;&#125;
+</code></pre>
+<h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><p>事件绑定，可以用v-on指令监听 DOM 事件，并在触发时运行一些 JavaScript 代码，可用@缩写。</p>
+<pre><code class="html">&lt;template&gt;
+  &lt;button v-on:click=&quot;addCounter&quot;&gt;Add 1&lt;/button&gt;
+  &lt;!-- 以下为缩写 --&gt;
+  &lt;button @click=&quot;addCounter&quot;&gt;Add 1&lt;/button&gt;
+  &lt;p&gt;The button above has been clicked &#123;&#123; counter &#125;&#125; times.&lt;/p&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+  export default &#123;
+    data() &#123;
+      return &#123;
+        counter: 0
+      &#125;;
+    &#125;,
+    methods: &#123;
+      addCounter() &#123;
+        this.counter += 1;
+      &#125;
+    &#125;
+  &#125;;
+&lt;/script&gt;
+</code></pre>
+<p>v-on事件修饰符</p>
+<table>
+<thead>
+<tr>
+<th>修饰符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.stop</td>
+<td>event.stopPropagation()，阻止事件继续传播</td>
+</tr>
+<tr>
+<td>.prevent</td>
+<td>event.preventDefault()，阻止默认事件</td>
+</tr>
+<tr>
+<td>.capture</td>
+<td>添加事件监听器时使用事件捕获模式</td>
+</tr>
+<tr>
+<td>.once</td>
+<td>只绑定一次</td>
+</tr>
+<tr>
+<td>.enter/.tab/.esc/.space/.ctrl/.[keyCode]</td>
+<td>按键修饰符</td>
+</tr>
+</tbody></table>
+<pre><code class="html">&lt;!-- 阻止单击事件继续传播 --&gt;
+&lt;a v-on:click.stop=&quot;doThis&quot;&gt;&lt;/a&gt;
+
+&lt;!-- 提交事件不再重载页面 --&gt;
+&lt;form v-on:submit.prevent=&quot;onSubmit&quot;&gt;&lt;/form&gt;
+
+&lt;!-- Alt + C --&gt;
+&lt;input @keyup.alt.67=&quot;clear&quot; /&gt;
+</code></pre>
+<h2 id="计算属性（computed）和侦听器（watch）"><a href="#计算属性（computed）和侦听器（watch）" class="headerlink" title="计算属性（computed）和侦听器（watch）"></a>计算属性（computed）和侦听器（watch）</h2><h3 id="computed"><a href="#computed" class="headerlink" title="computed"></a>computed</h3><p>有些时候需要稍微复杂一点的逻辑计算，这种情况我们可以使用计算属性。计算属性的结果会被缓存，除非依赖的响应式属性变化才会重新计算，计算属性支持读取设置。</p>
+<pre><code class="JavaScript">var vm = new Vue(&#123;
+  data: &#123; a: 1 &#125;,
+  computed: &#123;
+    // 仅读取
+    aDouble: function() &#123;
+      return this.a * 2;
+    &#125;,
+    // 读取和设置
+    aPlus: &#123;
+      get: function() &#123;
+        return this.a + 1;
+      &#125;,
+      set: function(v) &#123;
+        this.a = v - 1;
+      &#125;
+    &#125;
+  &#125;
+&#125;);
+vm.aPlus; // =&gt; 2
+vm.aPlus = 3;
+vm.a; // =&gt; 2
+vm.aDouble; // =&gt; 4
+</code></pre>
+<h3 id="wacth"><a href="#wacth" class="headerlink" title="wacth"></a>wacth</h3><p>侦听器用来监听某些数据变化，观察 Vue 实例变化的一个表达式或计算属性函数。Vue 实例将会在实例化时调用$watch()，遍历 watch 对象的每一个属性。watch支持的方式有好几种，回调函数得到的参数为新值和旧值：</p>
+<pre><code class="JavaScript">var vm = new Vue(&#123;
+  data: &#123;
+    a: 1,
+    b: 2,
+    c: 3,
+    d: 4,
+    e: &#123;
+      f: &#123;
+        g: 5
+      &#125;
+    &#125;
+  &#125;,
+  watch: &#123;
+    a: function(val, oldVal) &#123;
+      console.log(&quot;new: %s, old: %s&quot;, val, oldVal);
+    &#125;,
+    // 方法名
+    b: &quot;someMethod&quot;,
+    // 该回调会在任何被侦听的对象的 property 改变时被调用，不论其被嵌套多深
+    c: &#123;
+      handler: function(val, oldVal) &#123;
+        /* ... */
+      &#125;,
+      deep: true
+    &#125;,
+    // 该回调将会在侦听开始之后被立即调用
+    d: &#123;
+      handler: &quot;someMethod&quot;,
+      immediate: true
+    &#125;,
+    /*  这部分未看明白，后续回来再来补充
+    e: [
+      &quot;handle1&quot;,
+      function handle2(val, oldVal) &#123;
+        /* ... */
+      &#125;,
+      &#123;
+        handler: function handle3(val, oldVal) &#123;
+          /* ... */
+        &#125;
+        /* ... */
+      &#125;
+    ],
+    */
+    // watch vm.e.f&#39;s value: &#123;g: 5&#125;
+    &quot;e.f&quot;: function(val, oldVal) &#123;
+      /* ... */
+    &#125;
+  &#125;,
+  methods: &#123;
+    someMethod() &#123;&#125;
+  &#125;
+&#125;);
+vm.a = 2; // =&gt; new: 2, old: 1
+</code></pre>
 
       </div>
       
@@ -342,7 +525,7 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
           <div class="post-attach">
             <span class="post-pubtime">
               <i class="iconfont icon-updatetime" title="Update time"></i>
-              2021-03-29 23:05:07
+              2021-04-10 19:05:56
             </span>
             
                   <span class="post-categories">
@@ -376,6 +559,11 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
           </div>
           <div class="post-foot-prev">
             
+              <a href="/2021/04/24/003.Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
           </div>
         </div>
       
@@ -384,7 +572,7 @@ vm.$delete; // 删除对象的属性。如果对象是响应式的，确保删�
   <div class="post-catalog" id="catalog">
     <div class="title">Contents</div>
     <div class="catalog-content">
-      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="toc-text">Vue基础介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-%E5%BC%95%E5%85%A5%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">vue 引入三种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B"><span class="toc-text">Vue实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="toc-text">生命周期钩子</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%8B%A5%E9%A1%B5%E9%9D%A2%E6%95%B0%E6%8D%AE%E5%8F%91%E7%94%9F%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%88%99%E8%BF%98%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%A5%E4%B8%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">若页面数据发生更新，则还会发生以下过程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B%E5%9F%BA%E6%9C%AC%E9%80%89%E9%A1%B9"><span class="toc-text">Vue实例基本选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F"><span class="toc-text">数据绑定方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-bind"><span class="toc-text">v-bind</span></a></li></ol></li></ol></li></ol>
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D"><span class="toc-text">Vue基础介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#vue-%E5%BC%95%E5%85%A5%E4%B8%89%E7%A7%8D%E6%96%B9%E5%BC%8F"><span class="toc-text">vue 引入三种方式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B"><span class="toc-text">Vue实例</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90"><span class="toc-text">生命周期钩子</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#%E8%8B%A5%E9%A1%B5%E9%9D%A2%E6%95%B0%E6%8D%AE%E5%8F%91%E7%94%9F%E6%9B%B4%E6%96%B0%EF%BC%8C%E5%88%99%E8%BF%98%E4%BC%9A%E5%8F%91%E7%94%9F%E4%BB%A5%E4%B8%8B%E8%BF%87%E7%A8%8B"><span class="toc-text">若页面数据发生更新，则还会发生以下过程</span></a></li></ol></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Vue%E5%AE%9E%E4%BE%8B%E5%9F%BA%E6%9C%AC%E9%80%89%E9%A1%B9"><span class="toc-text">Vue实例基本选项</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%91%E5%AE%9A%E6%96%B9%E5%BC%8F"><span class="toc-text">数据绑定方式</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#v-bind"><span class="toc-text">v-bind</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#data"><span class="toc-text">data</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#filter"><span class="toc-text">filter</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#v-on"><span class="toc-text">v-on</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%AE%A1%E7%AE%97%E5%B1%9E%E6%80%A7%EF%BC%88computed%EF%BC%89%E5%92%8C%E4%BE%A6%E5%90%AC%E5%99%A8%EF%BC%88watch%EF%BC%89"><span class="toc-text">计算属性（computed）和侦听器（watch）</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#computed"><span class="toc-text">computed</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#wacth"><span class="toc-text">wacth</span></a></li></ol></li></ol></li></ol>
     </div>
   </div>
 

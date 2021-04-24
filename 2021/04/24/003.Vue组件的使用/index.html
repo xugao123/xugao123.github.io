@@ -1,0 +1,761 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="keywords" content="" />
+  <meta name="author" content="洋小姐" />
+  <meta name="description" content="" />
+  
+  
+  <title>
+    
+      Vue组件的使用 
+      
+      
+      |
+    
+     洋小姐的IT进程
+  </title>
+
+  
+    <link rel="apple-touch-icon" href="/images/favicon.png">
+    <link rel="icon" href="/images/favicon.png">
+  
+
+  <!-- Raleway-Font -->
+  <link href="https://fonts.googleapis.com/css?family=Raleway&display=swap" rel="stylesheet">
+
+  <!-- hexo site css -->
+  
+<link rel="stylesheet" href="/css/base.css">
+<link rel="stylesheet" href="/iconfont/iconfont.css">
+<link rel="stylesheet" href="/css/github-markdown.css">
+<link rel="stylesheet" href="/css/highlight.css">
+
+
+  <!-- jquery3.3.1 -->
+  <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+
+  <!-- fancybox -->
+  <link href="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.css" rel="stylesheet">
+  <script async src="https://cdn.bootcss.com/fancybox/3.5.2/jquery.fancybox.min.js"></script>
+  
+<script src="/js/fancybox.js"></script>
+
+
+  
+
+<meta name="generator" content="Hexo 5.4.0"></head>
+
+
+  <body>
+    <div id="app">
+      <div class="header">
+  <div class="avatar">
+    <a href="/">
+      <!-- 头像取消懒加载，添加no-lazy -->
+      
+        <img src="/images/avatar.png" alt="">
+      
+    </a>
+    <div class="nickname"><a href="/">洋小姐</a></div>
+  </div>
+  <div class="navbar">
+    <ul>
+      
+        <li class="nav-item" data-path="/">
+          <a href="/">Home</a>
+        </li>
+      
+        <li class="nav-item" data-path="/archives/">
+          <a href="/archives/">Archives</a>
+        </li>
+      
+        <li class="nav-item" data-path="/categories/">
+          <a href="/categories/">Categories</a>
+        </li>
+      
+        <li class="nav-item" data-path="/tags/">
+          <a href="/tags/">Tags</a>
+        </li>
+      
+        <li class="nav-item" data-path="/about/">
+          <a href="/about/">About</a>
+        </li>
+      
+    </ul>
+  </div>
+</div>
+
+
+<script src="/js/activeNav.js"></script>
+
+
+
+      <div class="flex-container">
+        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
+<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+
+<!-- LaTex Display -->
+<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+<script type="text/javascript" id="MathJax-script" async
+  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
+  }
+};
+</script>
+
+
+
+  
+
+  
+
+  
+
+  
+  <!-- 文章内容页 url形式：https://yoursite/文章标题/ -->
+  <div class="container post-details" id="post-details">
+    <div class="post-content">
+      <div class="post-title">Vue组件的使用</div>
+      <div class="post-attach">
+        <span class="post-pubtime">
+          <i class="iconfont icon-updatetime" title="Update time"></i>
+          2021-04-24 12:37:35
+        </span>
+        
+              <span class="post-categories">
+                <i class="iconfont icon-bookmark" title="Categories"></i>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                    <b>#</b> 前端
+                  </a>
+                </span>
+                
+                <span class="span--category">
+                  <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+              <span class="post-tags">
+                <i class="iconfont icon-tags" title="Tags"></i>
+                
+                <span class="span--tag">
+                  <a href="/tags/Vue/" title="Vue">
+                    <b>#</b> Vue
+                  </a>
+                </span>
+                
+              </span>
+          
+      </div>
+      <div class="markdown-body">
+        <h1 id="Vue组件的使用"><a href="#Vue组件的使用" class="headerlink" title="Vue组件的使用"></a>Vue组件的使用</h1><p>一个 Vue 应用由根实例以及组件树（可复用的 Vue 实例）组成。我们讲了单个的 Vue 实例，本章我们来介绍多个 Vue 实例（组件）的组成——组件系统，树状结构，可以由上到下的方式来管理，不管是事件的通知、数据的检测、父子组件的通信等，都会更高效。</p>
+<h2 id="注册类型"><a href="#注册类型" class="headerlink" title="注册类型"></a>注册类型</h2><p>全局注册和局部注册</p>
+<h3 id="组件名"><a href="#组件名" class="headerlink" title="组件名"></a>组件名</h3><p>html对于特性名大小写不明显，所有浏览器会把特性名都翻译成小写，在命名的时候有两种：</p>
+<ul>
+<li>使用短横线分隔(kebab-case)命名：当使用 kebab-case 定义一个组件时，你也必须在引用这个自定义元素时使用 kebab-case，如<my-component></my-component></li>
+<li>使用大驼峰(PascalCase)：当使用 PascalCase 定义一个组件时，既可以使用 PascalCase 也可以使用 kebab-case 来引用，像<my-component></my-component>和<MyComponent></MyComponent><h3 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h3>全局注册可以通过Vue.component()的方式进行，该方法第一个参数要传入组件的名称，第二个参数传入该组件的选项<pre><code>Vue.component(&quot;my-button&quot;, &#123;
+// 选项
+// 除了 el 以外，组件的选项与 Vue 实例相同
+&#125;);
+</code></pre>
+<h3 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h3>局部注册可通过在实例中的components选项进行配置<pre><code>// 获取组件
+import MyButton from &quot;../components/my-button&quot;;
+new Vue(&#123;
+components: &#123; MyButton &#125;
+&#125;);
+// my-button.vue
+new Vue(&#123;
+name: &quot;my-button&quot;
+&#125;);
+</code></pre>
+</li>
+</ul>
+<p>这种方式定义的组件，如果也进行了全局注册，其命名会以全局注册的名字为准，也就是全局注册的命名优先级更高</p>
+<h3 id="单文件组件"><a href="#单文件组件" class="headerlink" title="单文件组件"></a>单文件组件</h3><p>一个Vue组件是由一些逻辑和功能完整的代码组成，包括html,css,javaScript组成。我们常常使用单组件文件，.vue后缀,如此方便管理文件和组件<br><img src="/images/danzujian.png" alt="image"><br>在单组件里的样式还可以用scoped属性</p>
+<pre><code class="html">&lt;template&gt;
+  &lt;div class=&quot;example&quot;&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+  .example &#123;
+    color: red;
+  &#125;
+&lt;/style&gt;
+
+&lt;!-- 会转换成以下 --&gt;
+&lt;!-- 通过增加局部随机属性，来匹配到具体的组件 --&gt;
+&lt;template&gt;
+  &lt;div class=&quot;example&quot; data-v-f3f3eg9&gt;hi&lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+  .example[data-v-f3f3eg9] &#123;
+    color: red;
+  &#125;
+&lt;/style&gt;
+</code></pre>
+<h2 id="组件间通信"><a href="#组件间通信" class="headerlink" title="组件间通信"></a>组件间通信</h2><h3 id="prop数据传递"><a href="#prop数据传递" class="headerlink" title="prop数据传递"></a>prop数据传递</h3><p>(个人理解就是预留接口，通过传参调用)<br>props,vue实例的一个选项，可以是数组，也可以是对象。如果是对象，可以有一些高级选项可供配置,如类型检测、自定义验证和设置默认值等等</p>
+<table>
+<thead>
+<tr>
+<th>props高级选项</th>
+<th>作用</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>type</td>
+<td>会检查该 prop 是否是给定的类型，否则抛出警告</td>
+<td>可以是下列原生构造函数中的一种：String、Number、Boolean、Array、Object、Date、Function、Symbol、任何自定义构造函数、或上述内容组成的数组</td>
+</tr>
+<tr>
+<td>default</td>
+<td>为该 prop 指定一个默认值</td>
+<td>如果该 prop 没有被传入，则换做用这个值，对象或数组的默认值必须从一个工厂函数返回</td>
+</tr>
+<tr>
+<td>required</td>
+<td>定义该 prop 是否是必填项，默认为false</td>
+<td>在非生产环境中，如果这个值为true且该prop没有被传入的，则一个控制台警告将会被抛出</td>
+</tr>
+<tr>
+<td>validator</td>
+<td>自定义验证函数会将该 prop 的值作为唯一的参数代入</td>
+<td>在非生产环境下，如果该函数返回一个false的值 (也就是验证失败)，一个控制台警告将会被抛出</td>
+</tr>
+</tbody></table>
+<pre><code class="html">&lt;template&gt;
+  &lt;button
+    class=&quot;my-button&quot;
+    @click=&quot;handleClick&quot;
+    :disabled=&quot;disabled || loading&quot;
+    :type=&quot;type&quot;
+    :class=&quot;[
+      type ? &#39;my-button--&#39; + type : &#39;&#39;,
+      buttonSize ? &#39;my-button--&#39; + buttonSize : &#39;&#39;,
+      &#123;
+        &#39;is-disabled&#39;: disabled,
+        &#39;is-loading&#39;: loading
+      &#125;
+    ]&quot;
+  &gt;
+    &lt;i class=&quot;el-icon-loading&quot; v-if=&quot;loading&quot;&gt;&lt;/i&gt;
+    &lt;i :class=&quot;icon&quot; v-if=&quot;icon &amp;&amp; !loading&quot;&gt;&lt;/i&gt;
+    &lt;span v-if=&quot;$slots.default&quot;&gt;&lt;slot&gt;&lt;/slot&gt;&lt;/span&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+&lt;script&gt;
+  export default &#123;
+    name: &quot;MyButton&quot;,
+    props: &#123;
+      // 按钮类型，如info、warn、error等
+      type: &#123;
+        type: String,
+        default: &quot;default&quot;
+      &#125;,
+      // icon类型，匹配样式
+      icon: &#123;
+        type: String,
+        default: &quot;&quot;
+      &#125;,
+      loading: Boolean, // 是否在加载中
+      disabled: Boolean // 是否不可用
+    &#125;,
+
+    methods: &#123;
+      // 点击触发click事件
+      handleClick(evt) &#123;
+        this.$emit(&quot;click&quot;, evt);
+      &#125;
+    &#125;
+  &#125;;
+&lt;/script&gt;
+</code></pre>
+<p>该组件封装了按钮类型、图标和状态，通过 prop 提供给外部配置使用。Prop 是我们可以在组件上注册的一些自定义特性，常常用于接收来自父组件的数据/属性值，我们可以直接在需要的地方使用：</p>
+<pre><code class="html">&lt;my-button&gt;原按钮&lt;/my-button&gt;
+&lt;!-- 可以像这样给 prop 传入一个静态的值 --&gt;
+&lt;my-button type=&quot;info&quot; icon=&quot;config&quot;&gt;提示样式按钮（带管理图标）&lt;/my-button&gt;
+&lt;!-- 也可以通过 v-bind 动态赋值 --&gt;
+&lt;my-button type=&quot;info&quot; :loading=&quot;true&quot;&gt;提示样式按钮（加载中）&lt;/my-button&gt;
+&lt;my-button type=&quot;error&quot; :disabled=&quot;true&quot;&gt;错误样式按钮（不可用）&lt;/my-button&gt;
+</code></pre>
+<p>一个组件默认可以拥有任意数量的prop，任何值都可以传递给任何 prop。<br>注意：prop的命名，HTML 中的特性名是大小写不敏感的，因此 PascalCase 的 prop 名需要使用其等价的 kebab-case 来使用<br><img src="/images/propMingming.png" alt="image"></p>
+<h3 id="父子组件通信"><a href="#父子组件通信" class="headerlink" title="父子组件通信"></a>父子组件通信</h3><p>prop的通信都是从父组件到子组件的单向向下传递，由父组件向子组件传递数据，反之则不行。需要一个子组件也可以向父组件传递数据的方式。在Vue中，可以像原生的dom事件一样，使用v-on来随时监听子组件任意事件</p>
+<pre><code class="html">&lt;my-button @click=&quot;handleClick&quot;&gt;自定义按钮&lt;/my-button&gt;
+</code></pre>
+<p>自定义事件<br>除了原生的固有事件，还可以监视自定义事件</p>
+<p>子组件</p>
+<pre><code class="html">&lt;button v-on:click=&quot;$emit(&#39;test&#39;)&quot;&gt;test&lt;/button&gt;
+&lt;!-- $emit 可以通过参数传值 --&gt;
+&lt;button v-on:click=&quot;$emit(&#39;plus&#39;, 1)&quot;&gt;Plus One&lt;/button&gt;
+</code></pre>
+<p>父组件</p>
+<pre><code class="html">&lt;my-button @plus=&quot;handlePlus&quot;&gt;自定义按钮&lt;/my-button&gt;
+
+&lt;script&gt;
+  export default &#123;
+    methods: &#123;
+      handlePlus(num) &#123;
+        this.menberNum += num;
+      &#125;
+    &#125;
+  &#125;;
+&lt;/script&gt;
+</code></pre>
+<h3 id="slot插槽"><a href="#slot插槽" class="headerlink" title="slot插槽"></a>slot插槽</h3><p>就是在自定义组件的标签间留下位置，根据标签间的值进行插入<br>例如 下面这个my-button 组件</p>
+<pre><code class="html">&lt;template&gt;
+  &lt;button class=&quot;my-button&quot;&gt;
+    &lt;i class=&quot;el-icon-loading&quot; v-if=&quot;loading&quot;&gt;&lt;/i&gt;
+    &lt;i :class=&quot;icon&quot; v-if=&quot;icon &amp;&amp; !loading&quot;&gt;&lt;/i&gt;
+    &lt;span&gt;
+      &lt;slot&gt;&lt;/slot&gt;
+    &lt;/span&gt;
+  &lt;/button&gt;
+&lt;/template&gt;
+</code></pre>
+<p>预留了一个插槽，在使用的时候就可以进行插入了</p>
+<pre><code class="html">&lt;my-button&gt;按钮&lt;/my-button&gt;
+&lt;!-- 最终会变成这样 --&gt;
+&lt;button&gt;&lt;span&gt;按钮&lt;/span&gt;&lt;/button&gt;
+
+&lt;my-button&gt;&lt;a&gt;test&lt;/a&gt;按钮&lt;/my-button&gt;
+&lt;!-- 最终会变成这样 --&gt;
+&lt;button&gt;&lt;span&gt;&lt;a&gt;test&lt;/a&gt;按钮&lt;span&gt;&lt;/button&gt;
+
+&lt;my-button loading&gt;&lt;a&gt;test&lt;/a&gt;按钮&lt;/my-button&gt;
+&lt;!-- 最终会变成这样 --&gt;
+&lt;button&gt;&lt;i class=&quot;el-icon-loading&quot;&gt;&lt;/i&gt;&lt;span&gt;&lt;a&gt;test&lt;/a&gt;按钮&lt;/span&gt;&lt;/button&gt;
+</code></pre>
+<p>还可以在预留的时候留下默认值，在使用的时候如果不传值就显示默认值<br><img src="/images/slotMorenzhi.png" alt="image"></p>
+<h4 id="具名插槽"><a href="#具名插槽" class="headerlink" title="具名插槽"></a>具名插槽</h4><p>在一个组件里同时需要使用多个插槽时，可以使用name属性</p>
+<pre><code class="html">&lt;!-- my-dialog.vue --&gt;
+&lt;div class=&quot;dialog-container&quot;&gt;
+  &lt;header&gt;
+    &lt;!-- 弹窗头部内容 --&gt;
+    &lt;slot name=&quot;header&quot;&gt;提示&lt;/slot&gt;
+  &lt;/header&gt;
+  &lt;main&gt;
+    &lt;!-- 弹窗主要内容 --&gt;
+    &lt;!-- 一个不带 name 的 &lt;slot&gt; 出口会带有隐含的名字“default” --&gt;
+    &lt;!-- 相当于 &lt;slot name=&quot;default&quot;&gt;&lt;/slot&gt; --&gt;
+    &lt;slot&gt;&lt;/slot&gt;
+  &lt;/main&gt;
+  &lt;footer&gt;
+    &lt;!-- 弹窗底部内容，通常是按钮 --&gt;
+    &lt;slot name=&quot;footer&quot;&gt;
+      &lt;!-- 设置了默认内容 --&gt;
+      &lt;button @click=&quot;$emit(&#39;confirm&#39;)&quot;&gt;确定&lt;/button&gt;
+    &lt;/slot&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<p>使用的时候，我们可以在一个<code>&lt;template&gt;</code>元素上使用v-slot指令（注意v-slot只能添加在一个<code>&lt;template&gt;</code>上，只有默认插槽时，组件的标签才可以被当作插槽的模板来使用）,v-solt的缩写#：</p>
+<pre><code class="html">&lt;my-dialog&gt;确认要关闭吗？&lt;/my-dialog&gt;
+&lt;!-- 任何没有被包裹在带有 v-slot 的 &lt;template&gt; 中的内容都会被视为默认插槽的内容 --&gt;
+&lt;!-- 最终会变成这样 --&gt;
+&lt;div class=&quot;dialog-container&quot;&gt;
+  &lt;header&gt;提示&lt;/header&gt;
+  &lt;main&gt;确认要关闭吗？&lt;/main&gt;
+  &lt;footer&gt;
+    &lt;button @click=&quot;$emit(&#39;confirm&#39;)&quot;&gt;确定&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+
+&lt;my-dialog&gt;
+  &lt;template v-slot:header&gt;请确认&lt;/template&gt;
+  &lt;template&gt;确认要关闭吗？&lt;/template&gt;
+  &lt;template v-slot:footer&gt;
+    &lt;button&gt;确定&lt;/button&gt;
+    &lt;button&gt;取消&lt;/button&gt;
+  &lt;/template&gt;
+&lt;/my-dialog&gt;
+&lt;!-- 可以这么进行缩写 --&gt;
+&lt;my-dialog&gt;
+  &lt;template #header&gt;请确认&lt;/template&gt;
+  &lt;template&gt;确认要关闭吗？&lt;/template&gt;
+  &lt;template #footer&gt;
+    &lt;button&gt;确定&lt;/button&gt;
+    &lt;button&gt;取消&lt;/button&gt;
+  &lt;/template&gt;
+&lt;/my-dialog&gt;
+
+&lt;!-- 最终会变成这样 --&gt;
+&lt;div class=&quot;dialog-container&quot;&gt;
+  &lt;header&gt;请确认&lt;/header&gt;
+  &lt;main&gt;确认要关闭吗？&lt;/main&gt;
+  &lt;footer&gt;
+    &lt;button&gt;确定&lt;/button&gt;
+    &lt;button&gt;取消&lt;/button&gt;
+  &lt;/footer&gt;
+&lt;/div&gt;
+</code></pre>
+<h2 id="组件的封装"><a href="#组件的封装" class="headerlink" title="组件的封装"></a>组件的封装</h2><p>一个好的组件应该是如下这般<br><img src="/images/zujiandefengzhuang.png" alt="image"></p>
+
+      </div>
+      
+        <div class="prev-or-next">
+          <div class="post-foot-next">
+            
+              <a href="/2021/04/10/002.Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/" target="_self">
+                <i class="iconfont icon-chevronleft"></i>
+                <span>Prev</span>
+              </a>
+            
+          </div>
+          <div class="post-attach">
+            <span class="post-pubtime">
+              <i class="iconfont icon-updatetime" title="Update time"></i>
+              2021-04-24 12:37:35
+            </span>
+            
+                  <span class="post-categories">
+                    <i class="iconfont icon-bookmark" title="Categories"></i>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/" title="前端">
+                        <b>#</b> 前端
+                      </a>
+                    </span>
+                    
+                    <span class="span--category">
+                      <a href="/categories/%E5%89%8D%E7%AB%AF/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+                  <span class="post-tags">
+                    <i class="iconfont icon-tags" title="Tags"></i>
+                    
+                    <span class="span--tag">
+                      <a href="/tags/Vue/" title="Vue">
+                        <b>#</b> Vue
+                      </a>
+                    </span>
+                    
+                  </span>
+              
+          </div>
+          <div class="post-foot-prev">
+            
+              <a href="/2021/04/24/004.Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/" target="_self">
+                <span>Next</span>
+                <i class="iconfont icon-chevronright"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+    </div>
+    
+  <div class="post-catalog" id="catalog">
+    <div class="title">Contents</div>
+    <div class="catalog-content">
+      <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-text">Vue组件的使用</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%B3%A8%E5%86%8C%E7%B1%BB%E5%9E%8B"><span class="toc-text">注册类型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E5%90%8D"><span class="toc-text">组件名</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C"><span class="toc-text">全局注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C"><span class="toc-text">局部注册</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8D%95%E6%96%87%E4%BB%B6%E7%BB%84%E4%BB%B6"><span class="toc-text">单文件组件</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E9%97%B4%E9%80%9A%E4%BF%A1"><span class="toc-text">组件间通信</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#prop%E6%95%B0%E6%8D%AE%E4%BC%A0%E9%80%92"><span class="toc-text">prop数据传递</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%88%B6%E5%AD%90%E7%BB%84%E4%BB%B6%E9%80%9A%E4%BF%A1"><span class="toc-text">父子组件通信</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#slot%E6%8F%92%E6%A7%BD"><span class="toc-text">slot插槽</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%85%B7%E5%90%8D%E6%8F%92%E6%A7%BD"><span class="toc-text">具名插槽</span></a></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BB%84%E4%BB%B6%E7%9A%84%E5%B0%81%E8%A3%85"><span class="toc-text">组件的封装</span></a></li></ol></li></ol>
+    </div>
+  </div>
+
+  
+<script src="/js/catalog.js"></script>
+
+
+
+
+    
+      <div class="comments-container">
+        
+
+
+
+
+
+      </div>
+    
+  </div>
+
+
+        <div class="footer">
+  <div class="social">
+    <ul>
+      
+        <li>
+          <a title="github" target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">
+            <i class="iconfont icon-github"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="email" href="">
+            <i class="iconfont icon-envelope"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="facebook" href="">
+            <i class="iconfont icon-facebooksquare"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="twitter" href="">
+            <i class="iconfont icon-twitter"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="wechat" href="">
+            <i class="iconfont icon-wechat"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="weibo" href="">
+            <i class="iconfont icon-weibo"></i>
+          </a>
+        </li>
+      
+        <li>
+          <a title="rss" href="/atom.xml">
+            <i class="iconfont icon-rss"></i>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Copyright © Oranges 2021</a>
+        
+    </div>
+  
+    <div class="footer-more">
+      
+        <a target="_blank" rel="noopener" href="https://github.com/zchengsite/hexo-theme-oranges">Theme by Oranges | Powered by Hexo</a>
+        
+    </div>
+  
+</div>
+
+      </div>
+
+      <div class="back-to-top hidden">
+  <a href="javascript: void(0)">
+    <i class="iconfont icon-chevronup"></i>
+  </a>
+</div>
+
+
+<script src="/js/backtotop.js"></script>
+
+
+
+      
+  <div class="search-icon" id="search-icon">
+    <a href="javascript: void(0)">
+      <i class="iconfont icon-search"></i>
+    </a>
+  </div>
+
+  <div class="search-overlay hidden">
+    <div class="search-content" tabindex="0">
+      <div class="search-title">
+        <span class="search-icon-input">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-search"></i>
+          </a>
+        </span>
+        
+          <input type="text" class="search-input" id="search-input" placeholder="Search...">
+        
+        <span class="search-close-icon" id="search-close-icon">
+          <a href="javascript: void(0)">
+            <i class="iconfont icon-close"></i>
+          </a>
+        </span>
+      </div>
+      <div class="search-result" id="search-result"></div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var inputArea = document.querySelector("#search-input")
+    var searchOverlayArea = document.querySelector(".search-overlay")
+
+    inputArea.onclick = function() {
+      getSearchFile()
+      this.onclick = null
+    }
+
+    inputArea.onkeydown = function() {
+      if(event.keyCode == 13)
+        return false
+    }
+
+    function openOrHideSearchContent() {
+      let isHidden = searchOverlayArea.classList.contains('hidden')
+      if (isHidden) {
+        searchOverlayArea.classList.remove('hidden')
+        document.body.classList.add('hidden')
+        // inputArea.focus()
+      } else {
+        searchOverlayArea.classList.add('hidden')
+        document.body.classList.remove('hidden')
+      }
+    }
+
+    function blurSearchContent(e) {
+      if (e.target === searchOverlayArea) {
+        openOrHideSearchContent()
+      }
+    }
+
+    document.querySelector("#search-icon").addEventListener("click", openOrHideSearchContent, false)
+    document.querySelector("#search-close-icon").addEventListener("click", openOrHideSearchContent, false)
+    searchOverlayArea.addEventListener("click", blurSearchContent, false)
+
+    var searchFunc = function (path, search_id, content_id) {
+      'use strict';
+      var $input = document.getElementById(search_id);
+      var $resultContent = document.getElementById(content_id);
+      $resultContent.innerHTML = "<ul><span class='local-search-empty'>First search, index file loading, please wait...<span></ul>";
+      $.ajax({
+        // 0x01. load xml file
+        url: path,
+        dataType: "xml",
+        success: function (xmlResponse) {
+          // 0x02. parse xml file
+          var datas = $("entry", xmlResponse).map(function () {
+            return {
+              title: $("title", this).text(),
+              content: $("content", this).text(),
+              url: $("url", this).text()
+            };
+          }).get();
+          $resultContent.innerHTML = "";
+
+          $input.addEventListener('input', function () {
+            // 0x03. parse query to keywords list
+            var str = '<ul class=\"search-result-list\">';
+            var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+            $resultContent.innerHTML = "";
+            if (this.value.trim().length <= 0) {
+              return;
+            }
+            // 0x04. perform local searching
+            datas.forEach(function (data) {
+              var isMatch = true;
+              var content_index = [];
+              if (!data.title || data.title.trim() === '') {
+                data.title = "Untitled";
+              }
+              var orig_data_title = data.title.trim();
+              var data_title = orig_data_title.toLowerCase();
+              var orig_data_content = data.content.trim().replace(/<[^>]+>/g, "");
+              var data_content = orig_data_content.toLowerCase();
+              var data_url = data.url;
+              var index_title = -1;
+              var index_content = -1;
+              var first_occur = -1;
+              // only match artiles with not empty contents
+              if (data_content !== '') {
+                keywords.forEach(function (keyword, i) {
+                  index_title = data_title.indexOf(keyword);
+                  index_content = data_content.indexOf(keyword);
+
+                  if (index_title < 0 && index_content < 0) {
+                    isMatch = false;
+                  } else {
+                    if (index_content < 0) {
+                      index_content = 0;
+                    }
+                    if (i == 0) {
+                      first_occur = index_content;
+                    }
+                    // content_index.push({index_content:index_content, keyword_len:keyword_len});
+                  }
+                });
+              } else {
+                isMatch = false;
+              }
+              // 0x05. show search results
+              if (isMatch) {
+                str += "<li><a href='" + data_url + "' class='search-result-title'>" + orig_data_title + "</a>";
+                var content = orig_data_content;
+                if (first_occur >= 0) {
+                  // cut out 100 characters
+                  var start = first_occur - 20;
+                  var end = first_occur + 80;
+
+                  if (start < 0) {
+                    start = 0;
+                  }
+
+                  if (start == 0) {
+                    end = 100;
+                  }
+
+                  if (end > content.length) {
+                    end = content.length;
+                  }
+
+                  var match_content = content.substr(start, end);
+
+                  // highlight all keywords
+                  keywords.forEach(function (keyword) {
+                    var regS = new RegExp(keyword, "gi");
+                    match_content = match_content.replace(regS, "<span class=\"search-keyword\">" + keyword + "</span>");
+                  });
+
+                  str += "<p class=\"search-result-abstract\">" + match_content + "...</p>"
+                }
+                str += "</li>";
+              }
+            });
+            str += "</ul>";
+            if (str.indexOf('<li>') === -1) {
+              return $resultContent.innerHTML = "<ul><span class='local-search-empty'>No result<span></ul>";
+            }
+            $resultContent.innerHTML = str;
+          });
+        },
+        error: function(xhr, status, error) {
+          $resultContent.innerHTML = ""
+          if (xhr.status === 404) {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The search.xml file was not found, please refer to：<a href='https://github.com/zchengsite/hexo-theme-oranges#configuration' target='_black'>configuration</a><span></ul>";
+          } else {
+            $resultContent.innerHTML = "<ul><span class='local-search-empty'>The request failed, Try to refresh the page or try again later.<span></ul>";
+          }
+        }
+      });
+      $(document).on('click', '#search-close-icon', function() {
+        $('#search-input').val('');
+        $('#search-result').html('');
+      });
+    }
+
+    var getSearchFile = function() {
+        var path = "/search.xml";
+        searchFunc(path, 'search-input', 'search-result');
+    }
+  </script>
+
+
+
+
+    </div>
+  </body>
+</html>

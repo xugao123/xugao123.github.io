@@ -11,7 +11,7 @@
   
   <title>
     
-      后端 
+      archive_a: 2021/4 
       
       
       |
@@ -95,38 +95,59 @@
 
 
       <div class="flex-container">
-        <!-- 文章详情页，展示文章具体内容，url形式：https://yoursite/文章标题/ -->
-<!-- 同时为「标签tag」，「朋友friend」，「分类categories」，「关于about」页面的承载页面，具体展示取决于page.type -->
+        <!-- 归档页，展示本站所有文章，按照年份降序归类，url形式：https://yoursite/archives/ -->
 
-<!-- LaTex Display -->
-<script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-<script type="text/javascript" id="MathJax-script" async
-  src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
-</script>
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
+<!-- last: 按年份把文章分组，当前遍历到的年份 -->
+<!-- now: 当前遍历到的文章的发布年份 -->
 
-
-
-  
-  <!-- 分类页 url形式：https://yoursite/categories/ -->
-  <div class="container category-index">
-    <div>
-      <ul class="category-list"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><span class="category-list-count">4</span><ul class="category-list-child"><li class="category-list-item"><a class="category-list-link" href="/categories/%E5%89%8D%E7%AB%AF/Vue/">Vue</a><span class="category-list-count">4</span></li></ul></li></ul>
-    </div>
+<div class="container archives">
+  <div class="post-list">
+    
+        <!-- 后续文章的发布年份呈现 -->
+        <div class="content-title">
+          <h2>
+            <span>2021</span>
+          </h2>
+        </div>
+      
+      <div class="post-item" title="Vue常用指令和自定义指令">
+        <div class="time-m-d">04-24</div>
+        <div class="title">
+          <a href="/2021/04/24/004.Vue%E5%B8%B8%E7%94%A8%E6%8C%87%E4%BB%A4%E5%92%8C%E8%87%AA%E5%AE%9A%E4%B9%89%E6%8C%87%E4%BB%A4/">
+            <span>Vue常用指令和自定义指令</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="Vue组件的使用">
+        <div class="time-m-d">04-24</div>
+        <div class="title">
+          <a href="/2021/04/24/003.Vue%E7%BB%84%E4%BB%B6%E7%9A%84%E4%BD%BF%E7%94%A8/">
+            <span>Vue组件的使用</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="Vue基础介绍">
+        <div class="time-m-d">04-10</div>
+        <div class="title">
+          <a href="/2021/04/10/002.Vue%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/">
+            <span>Vue基础介绍</span>
+          </a>
+        </div>
+      </div>
+    
+      <div class="post-item" title="Vue框架介绍">
+        <div class="time-m-d">03-27</div>
+        <div class="title">
+          <a href="/2021/03/27/001.Vue%E6%A1%86%E6%9E%B6%E4%BB%8B%E7%BB%8D/">
+            <span>Vue框架介绍</span>
+          </a>
+        </div>
+      </div>
+    
   </div>
-  
-
-  
-
-  
-
-  
+</div>
 
         <div class="footer">
   <div class="social">
